@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Explorer - Interactive Journey into AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#6366f1',
+secondary: '#818cf8'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.gradient-bg {
+background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(129, 140, 248, 0.2) 100%);
+}
+.glass-effect {
+backdrop-filter: blur(12px);
+background: rgba(255, 255, 255, 0.8);
+}
+@keyframes robotAnimation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+@keyframes robotWave {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes robotBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.robot-container {
+  animation: robotAnimation 3s ease-in-out infinite;
+}
+.robot-hand {
+  animation: robotWave 2s ease-in-out infinite;
+  transform-origin: center;
+}
+.robot-eye {
+  animation: robotBlink 4s infinite;
+}
+.neon-button {
+  position: relative;
+  overflow: hidden;
+}
+.neon-button:hover {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+  transition: all 0.3s ease;
+}
+.neon-button:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(99, 102, 241, 0.2),
+    transparent
+  );
+  animation: neonEffect 0.8s;
+}
+@keyframes neonEffect {
+  100% {
+    left: 100%;
+  }
+}
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  visibility: hidden;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, visibility;
+}
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<nav class="fixed top-0 w-full z-50 glass-effect border-b border-gray-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16">
+<div class="flex-shrink-0 flex items-center">
+<span class="text-2xl font-['Pacifico'] text-primary">logo</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a href="#home" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">Home</a>
+<a href="#learn" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">Learn</a>
+<a href="#demos" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">Demos</a>
+<a href="#quiz" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">Quiz</a>
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-opacity-90 whitespace-nowrap">Get Started</button>
+</div>
+</div>
+</div>
+</nav>
+<section id="hero" class="pt-16 relative overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img src="https://public.readdy.ai/ai/img_res/958bbdaa95dde48869ba565ddd0192b3.jpg" class="w-full h-full object-cover object-top opacity-50">
+</div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div>
+<h1 class="text-5xl font-bold text-gray-900 mb-6">Explore the World of AI</h1>
+<p class="text-xl text-gray-600 mb-8">Embark on an interactive journey to understand Artificial Intelligence through hands-on experiences, live demos, and engaging challenges.</p>
+<div class="flex flex-wrap gap-4">
+<button class="!rounded-button bg-primary text-white px-6 py-3 text-base font-medium hover:bg-opacity-90 whitespace-nowrap flex items-center gap-2 neon-button">
+<i class="ri-rocket-2-line w-5 h-5 flex items-center justify-center"></i>
+Start Your Journey
+</button>
+<button class="!rounded-button border border-gray-200 px-6 py-3 text-base font-medium hover:bg-gray-50 whitespace-nowrap flex items-center gap-2">
+<i class="ri-play-circle-line w-5 h-5 flex items-center justify-center"></i>
+Watch Demo
+</button>
+</div>
+</div>
+<div class="relative robot-container">
+<img src="https://public.readdy.ai/ai/img_res/40dbc9bccdecbc22501cac02a3b62aac.jpg" class="w-full rounded-lg shadow-2xl">
+<div class="robot-hand absolute top-1/2 right-1/4 w-24 h-24 bg-blue-500 rounded-full opacity-0"></div>
+<div class="robot-eye absolute top-1/3 left-1/3 w-4 h-4 bg-blue-500 rounded-full opacity-0"></div>
+</div>
+</div>
+</div>
+</section>
+<section id="features" class="py-20 bg-white">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Discover AI Through Interactive Learning</h2>
+<p class="text-xl text-gray-600">Experience AI concepts through hands-on demonstrations and real-world applications</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="p-6 rounded-lg gradient-bg border border-gray-100">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
+<i class="ri-brain-line text-primary ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">AI Fundamentals</h3>
+<p class="text-gray-600">Learn the core concepts of AI, from basic principles to advanced applications.</p>
+</div>
+<div class="p-6 rounded-lg gradient-bg border border-gray-100">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
+<i class="ri-robot-line text-primary ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Live AI Demos</h3>
+<p class="text-gray-600">Experience AI in action with our interactive demonstrations and experiments.</p>
+</div>
+<div class="p-6 rounded-lg gradient-bg border border-gray-100">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
+<i class="ri-gamepad-line text-primary ri-2x"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">AI Challenges</h3>
+<p class="text-gray-600">Test your knowledge with fun quizzes and earn badges as you learn.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="learn" class="py-20 bg-gray-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Learning Paths</h2>
+<p class="text-xl text-gray-600">Choose your journey into the world of Artificial Intelligence</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
+<i class="ri-code-line text-primary ri-2x"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Beginner</h3>
+<p class="text-gray-600 mb-4">Start your AI journey with fundamental concepts and basic applications.</p>
+<button class="!rounded-button text-primary hover:bg-primary hover:text-white border border-primary px-4 py-2 text-sm font-medium whitespace-nowrap w-full">Start Learning</button>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
+<i class="ri-terminal-line text-primary ri-2x"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Intermediate</h3>
+<p class="text-gray-600 mb-4">Dive deeper into machine learning algorithms and neural networks.</p>
+<button class="!rounded-button text-primary hover:bg-primary hover:text-white border border-primary px-4 py-2 text-sm font-medium whitespace-nowrap w-full">Continue Learning</button>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
+<i class="ri-database-2-line text-primary ri-2x"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Advanced</h3>
+<p class="text-gray-600 mb-4">Master complex AI concepts and real-world implementations.</p>
+<button class="!rounded-button text-primary hover:bg-primary hover:text-white border border-primary px-4 py-2 text-sm font-medium whitespace-nowrap w-full">Advance Further</button>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
+<i class="ri-building-line text-primary ri-2x"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Enterprise</h3>
+<p class="text-gray-600 mb-4">Learn how to implement AI solutions in business environments.</p>
+<button class="!rounded-button text-primary hover:bg-primary hover:text-white border border-primary px-4 py-2 text-sm font-medium whitespace-nowrap w-full">Get Started</button>
+</div>
+</div>
+</div>
+</section>
+<section id="demos" class="py-20 bg-white">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Interactive AI Demos</h2>
+<p class="text-xl text-gray-600">Experience AI capabilities firsthand through our interactive demonstrations</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+<div class="flex items-center mb-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mr-4">
+<i class="ri-message-3-line text-primary ri-2x"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-900">AI Chatbot</h3>
+<p class="text-gray-600">Experience natural language processing in action</p>
+</div>
+</div>
+<div class="bg-gray-50 rounded-lg p-4 mb-4 h-64 overflow-y-auto" id="chatMessages">
+</div>
+<div class="flex gap-2">
+<input type="text" id="chatInput" class="flex-1 px-4 py-2 border border-gray-200 rounded-button focus:outline-none focus:border-primary" placeholder="Type your message...">
+<button onclick="sendMessage()" class="!rounded-button bg-primary text-white px-4 py-2 hover:bg-opacity-90 whitespace-nowrap">
+<i class="ri-send-plane-line w-5 h-5 flex items-center justify-center"></i>
+</button>
+</div>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+<div class="flex items-center mb-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mr-4">
+<i class="ri-image-line text-primary ri-2x"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-900">Image Recognition</h3>
+<p class="text-gray-600">Upload an image and let AI analyze it</p>
+</div>
+</div>
+<div class="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center mb-4" id="dropZone">
+<i class="ri-upload-cloud-line text-gray-400 ri-3x mb-2"></i>
+<p class="text-gray-600">Drag and drop an image here or</p>
+<button onclick="document.getElementById('fileInput').click()" class="!rounded-button text-primary hover:bg-primary hover:text-white border border-primary px-4 py-2 mt-2 text-sm font-medium whitespace-nowrap">
+Browse Files
+</button>
+<input type="file" id="fileInput" class="hidden" accept="image/*">
+</div>
+<div id="imagePreview" class="hidden">
+<img src="" alt="Preview" class="w-full h-48 object-cover rounded-lg mb-4">
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-900 mb-2">Analysis Results:</h4>
+<div id="analysisResults" class="text-gray-600"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="quiz" class="py-20 bg-gray-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">Test Your Knowledge</h2>
+<p class="text-xl text-gray-600">Challenge yourself with our AI quizzes and earn badges</p>
+</div>
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-8">
+<div class="mb-8">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xl font-semibold text-gray-900">AI Fundamentals Quiz</h3>
+<span class="text-gray-600">Question 1/10</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+<div class="bg-primary h-2 rounded-full" style="width: 10%"></div>
+</div>
+<div class="mb-6">
+<p class="text-lg text-gray-900 mb-4">What is the main difference between supervised and unsupervised learning?</p>
+<div class="space-y-3">
+<button onclick="selectAnswer(this)" class="!rounded-button w-full text-left p-4 border border-gray-200 hover:border-primary text-gray-700 hover:bg-primary hover:bg-opacity-5">
+A. Supervised learning requires labeled data, while unsupervised learning works with unlabeled data
+</button>
+<button onclick="selectAnswer(this)" class="!rounded-button w-full text-left p-4 border border-gray-200 hover:border-primary text-gray-700 hover:bg-primary hover:bg-opacity-5">
+B. Supervised learning is faster than unsupervised learning
+</button>
+<button onclick="selectAnswer(this)" class="!rounded-button w-full text-left p-4 border border-gray-200 hover:border-primary text-gray-700 hover:bg-primary hover:bg-opacity-5">
+C. Supervised learning uses more computer resources
+</button>
+<button onclick="selectAnswer(this)" class="!rounded-button w-full text-left p-4 border border-gray-200 hover:border-primary text-gray-700 hover:bg-primary hover:bg-opacity-5">
+D. There is no difference between them
+</button>
+</div>
+</div>
+<div class="flex justify-between">
+<button class="!rounded-button bg-gray-100 text-gray-700 px-6 py-2 hover:bg-gray-200 whitespace-nowrap" disabled>Previous</button>
+<button class="!rounded-button bg-primary text-white px-6 py-2 hover:bg-opacity-90 whitespace-nowrap">Next</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cta" class="py-20 bg-white">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-primary rounded-2xl overflow-hidden">
+<div class="relative px-8 py-16 sm:px-16 sm:py-24">
+<div class="relative max-w-3xl mx-auto text-center">
+<h2 class="text-3xl font-bold text-white mb-4">Ready to Start Your AI Journey?</h2>
+<p class="text-lg text-white text-opacity-90 mb-8">Join thousands of learners who are discovering the power of artificial intelligence</p>
+<button class="!rounded-button bg-white text-primary px-8 py-3 text-lg font-medium hover:bg-opacity-90 whitespace-nowrap">
+Get Started Now
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-gray-50 border-t border-gray-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<span class="text-2xl font-['Pacifico'] text-primary">logo</span>
+<p class="mt-4 text-gray-600">Empowering everyone to understand and use artificial intelligence.</p>
+</div>
+<div>
+<h4 class="text-gray-900 font-semibold mb-4">Learning</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">Courses</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Tutorials</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Resources</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Blog</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-gray-900 font-semibold mb-4">Company</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-primary">About Us</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Careers</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Contact</a></li>
+<li><a href="#" class="text-gray-600 hover:text-primary">Press</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-gray-900 font-semibold mb-4">Connect</h4>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-600 hover:text-primary">
+<i class="ri-twitter-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-600 hover:text-primary">
+<i class="ri-linkedin-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-600 hover:text-primary">
+<i class="ri-github-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-600 hover:text-primary">
+<i class="ri-youtube-fill ri-lg"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 mt-12 pt-8 text-center">
+<p class="text-gray-600">&copy; 2025 AI Explorer. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+function checkScroll() {
+  const sections = document.querySelectorAll('.fade-in-section');
+  sections.forEach(section => {
+    const sectionTop = section.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    if (sectionTop < windowHeight * 0.85) {
+      section.classList.add('is-visible');
+    }
+  });
+}
+window.addEventListener('scroll', checkScroll);
+window.addEventListener('load', () => {
+  const sections = document.querySelectorAll('section');
+  sections.forEach(section => {
+    section.classList.add('fade-in-section');
+  });
+  checkScroll();
+});
+const mockMessages = [
+{ role: 'assistant', content: 'Hello! How can I help you learn about AI today?' }
+];
+function sendMessage() {
+const input = document.getElementById('chatInput');
+const message = input.value.trim();
+if (!message) return;
+const chatMessages = document.getElementById('chatMessages');
+chatMessages.innerHTML += `
+<div class="mb-4 text-right">
+<div class="inline-block bg-primary text-white rounded-lg px-4 py-2 max-w-[80%]">
+${message}
+</div>
+</div>
+`;
+setTimeout(() => {
+chatMessages.innerHTML += `
+<div class="mb-4">
+<div class="inline-block bg-gray-100 rounded-lg px-4 py-2 max-w-[80%]">
+I understand you're interested in learning about AI. Let me help you with that!
+</div>
+</div>
+`;
+chatMessages.scrollTop = chatMessages.scrollHeight;
+}, 1000);
+input.value = '';
+chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function selectAnswer(button) {
+const buttons = button.parentElement.getElementsByTagName('button');
+for (let btn of buttons) {
+btn.classList.remove('border-primary', 'bg-primary', 'bg-opacity-5');
+}
+button.classList.add('border-primary', 'bg-primary', 'bg-opacity-5');
+}
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const imagePreview = document.getElementById('imagePreview');
+const analysisResults = document.getElementById('analysisResults');
+dropZone.addEventListener('dragover', (e) => {
+e.preventDefault();
+dropZone.classList.add('border-primary');
+});
+dropZone.addEventListener('dragleave', () => {
+dropZone.classList.remove('border-primary');
+});
+dropZone.addEventListener('drop', (e) => {
+e.preventDefault();
+dropZone.classList.remove('border-primary');
+const file = e.dataTransfer.files[0];
+handleImage(file);
+});
+fileInput.addEventListener('change', (e) => {
+const file = e.target.files[0];
+handleImage(file);
+});
+function handleImage(file) {
+if (file && file.type.startsWith('image/')) {
+const reader = new FileReader();
+reader.onload = (e) => {
+imagePreview.querySelector('img').src = e.target.result;
+dropZone.classList.add('hidden');
+imagePreview.classList.remove('hidden');
+analysisResults.innerHTML = `
+<div class="space-y-2">
+<div class="flex justify-between">
+<span>Objects detected:</span>
+<span>Person (98%)</span>
+</div>
+<div class="flex justify-between">
+<span>Scene classification:</span>
+<span>Indoor office (95%)</span>
+</div>
+<div class="flex justify-between">
+<span>Lighting conditions:</span>
+<span>Well lit (90%)</span>
+</div>
+</div>
+`;
+};
+reader.readAsDataURL(file);
+}
+}
+</script>
+</body>
+</html>
